@@ -1,0 +1,10 @@
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.csprojAssemblyReference.cache
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.Form1.resources
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.Properties.Resources.resources
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.csproj.GenerateResource.cache
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.csproj.CoreCompileInputs.cache
+C:\Users\rootlink1\Source\Repos\pushData\pushData\bin\Debug\pushData.exe.config
+C:\Users\rootlink1\Source\Repos\pushData\pushData\bin\Debug\pushData.exe
+C:\Users\rootlink1\Source\Repos\pushData\pushData\bin\Debug\pushData.pdb
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.exe
+C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.pdb
