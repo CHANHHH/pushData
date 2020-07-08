@@ -8,3 +8,13 @@ C:\Users\rootlink1\Source\Repos\pushData\pushData\bin\Debug\pushData.exe
 C:\Users\rootlink1\Source\Repos\pushData\pushData\bin\Debug\pushData.pdb
 C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.exe
 C:\Users\rootlink1\Source\Repos\pushData\pushData\obj\Debug\pushData.pdb
+D:\GitHub\Tools\pushData\pushData\bin\Debug\pushData.exe.config
+D:\GitHub\Tools\pushData\pushData\bin\Debug\pushData.exe
+D:\GitHub\Tools\pushData\pushData\bin\Debug\pushData.pdb
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.csprojAssemblyReference.cache
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.Form1.resources
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.Properties.Resources.resources
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.csproj.GenerateResource.cache
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.csproj.CoreCompileInputs.cache
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.exe
+D:\GitHub\Tools\pushData\pushData\obj\Debug\pushData.pdb
