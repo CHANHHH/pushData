@@ -1,22 +1,20 @@
-﻿using System;
+﻿//200708 최적화
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.IO.Ports;
-using System.Net.Configuration;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 
 namespace pushData
 {
     public partial class Form1 : Form
-    {        
-        public SerialPort Serial = new SerialPort();    //시리얼 통신 변수
+    {
+        public SerialPort Serial = new SerialPort();
         delegate void SetTextCallBack(string opt);
 
         public string PortNumber;
@@ -33,7 +31,7 @@ namespace pushData
         byte[] byteValue = null;
         byte[] krKey = null;
 
-        public static int mm,ss;
+        public static int mm, ss;
 
         public string[] cmdTemp = new string[10];
         public static int keyTemp;
@@ -90,19 +88,14 @@ namespace pushData
             Serial.Read(b_tmp_buf, 0, i_recv_size);
             recv_str += Encoding.GetEncoding(949).GetString(b_tmp_buf);
 
-            this.Invoke(new SetTextCallBack(display_data), new object[] { recv_str });
-            //this.BeginInvoke(new SetTextCallBack(display_data), new object[] { recv_str });
-
+            Invoke(new SetTextCallBack(display_data), new object[] { recv_str });
             recv_str = null;
         }
         private void display_data(string str)
         {
-            this.textBox_msg.AppendText(str);
-            this.textBox_msg.AppendText("\r\n");
-            this.textBox_msg.ScrollToCaret();
-
-            //rx_data_proc(str);
-
+            textBox_msg.AppendText(str);
+            textBox_msg.AppendText("\r\n");
+            textBox_msg.ScrollToCaret();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -136,7 +129,7 @@ namespace pushData
                         var publicKey = string.Empty;
 
                         byteValue = File.ReadAllBytes(fPath);
-                        
+
                         if (btnDer.Checked)
                         {
                             X509Certificate der = new X509Certificate(byteValue);
@@ -160,10 +153,10 @@ namespace pushData
 
                             textBox_msg.Text += byteKey;
                             textBox_msg.AppendText("\r\n#########################################BYTE KEY\r\n");
-                                                    
+
 
                             if (keyLen > 1)
-                            {                                
+                            {
                                 DerValue0 = byteKey.Substring(0, 512);
                                 DerValue1 = byteKey.Substring(512, 512);
                                 DerValue2 = byteKey.Substring(1024, 512);
@@ -185,9 +178,9 @@ namespace pushData
                             textBox_msg.ScrollToCaret();
                         }
                         else if (btnData.Checked)
-                        {                            
+                        {
                             int splitLen = 1024;
-                            bytelen = byteValue.Length/ splitLen;
+                            bytelen = byteValue.Length / splitLen;
 
                             byteKey = Convert.ToBase64String(byteValue);
                             textBox_msg.AppendText("\r\n#########################################" + bytelen + "\r\n" + "\r\n");
@@ -198,13 +191,10 @@ namespace pushData
                             {
                                 textBox_msg.AppendText("\r\n" + i + "/" + bytelen + "\r\n");
                                 DV[i] = byteKey.Substring(i * splitLen, splitLen);
-                                //textBox_msg.Text += DV[i];
                                 progressBar1.Value++;
                             }
-                            //textBox_msg.AppendText("\r\n#########################################" + bytelen + "\r\n" + "\r\n");
                             progressBar1.Value = progressBar1.Maximum;
-                            DV[bytelen] = byteKey.Substring(bytelen * splitLen);
-                            //textBox_msg.Text += DV[bytelen];                            
+                            DV[bytelen] = byteKey.Substring(bytelen * splitLen);                            
                         }
                     }
                     catch
@@ -226,11 +216,8 @@ namespace pushData
         {
             if (Serial.IsOpen)
             {
-                //Send(byteValue, byteValue.Length);
-                //Send(krKey);
-
                 if (btnDer.Checked)
-                {                                          
+                {
                     Send(DerValue0);
                     if (keyLen >= 1)
                     {
@@ -251,28 +238,30 @@ namespace pushData
 
                     textBox_msg.AppendText("[" + DateTime.Now.ToString() + "]");
                     DateTime startTime = DateTime.Now;
-                    List<long> total = new List<long>();
-                    /*
+
                     for (int i = 0; i <= bytelen; i++)
                     {
                         Send(DV[i]);                        
                         textBox_msg.AppendText("["+ mm + ":" +ss + "]" +"\r\n" + i + "/" + bytelen + "\r\n");
+                        if(progressBar1.Value != progressBar1.Maximum)
+                        progressBar1.Value++;
                     }
-                    */
+
+                    /*
                     Parallel.For(0, bytelen, (i) =>
                     {
                         Send(DV[i]);
                         textBox_msg.AppendText("[" + mm + ":" + ss + "]" + "\r\n" + i + "/" + bytelen + "\r\n");
-                        progressBar1.Value ++;
+                        progressBar1.Value++;
                     });
+                    */
+                    
                     DateTime endTime = DateTime.Now;
                     TimeSpan elapsed = endTime - startTime;
 
                     textBox_msg.AppendText("complete! \r\n");
                     textBox_msg.AppendText("[" + DateTime.Now.ToString() + "]\r\n");
                     textBox_msg.Text += elapsed;
-
-
 
                     timer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
                     timer.InitializeLifetimeService();
@@ -293,8 +282,6 @@ namespace pushData
                 mm++;
             }
         }
-
-
         private void btnUartConnect_Click(object sender, EventArgs e)
         {
 
@@ -315,12 +302,10 @@ namespace pushData
                 MessageBox.Show("Already Open it");
             }
         }
-
         private void button_clear_Click(object sender, EventArgs e)
         {
             textBox_msg.Text = null;
         }
-
         private void button_cmd_Click(object sender, EventArgs e)
         {
             string comport_str = "";
@@ -401,7 +386,6 @@ namespace pushData
         private void close_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
 
         public bool Send(string txMsg)
@@ -416,7 +400,6 @@ namespace pushData
             try
             {
                 Serial.Write(txMsg + "\n");
-                //this.textBox_msg.AppendText("serial Send :"+txMsg +" \r\n");
                 return true;
             }
             catch
@@ -435,44 +418,11 @@ namespace pushData
             try
             {
                 Serial.Write(txMsg, 0, len);
-
-                //PRT("UART] TTx:" + len + "/" + Util.disp_pkt(txMsg, len));
-
                 return true;
             }
             catch
             {
                 return false;
-            }
-        }
-
-        public void rx_data_proc(string msg)
-        {
-            string[] tok = msg.Split(',');
-            string prefix = tok[0];
-
-            //MF.textBox_msg.AppendText("tok1: " + tok[0] + "\r\n");
-            //MF.textBox_msg.AppendText("tok2: " + tok[1] + "\r\n");
-            //MF.textBox_msg.ScrollToCaret();
-
-            if (msg != "")
-            {
-                byte outbyte;
-                bool canConvert;
-
-                try
-                {
-                    canConvert = byte.TryParse(msg.Substring(0, 2), out outbyte);
-                }
-                catch
-                {
-                    canConvert = false;
-                }
-
-                if ((msg.Substring(0, 1) == "$") || (msg.Substring(0, 1) == "-") || (canConvert == true))
-                {
-                    //MF.textBox_msg.AppendText(msg);
-                }
             }
         }
     }
